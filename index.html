@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>input field validation</title>
+</head>
+<body>
+<form id="myform" action="success.html">
+    file:
+    <input id="file" type="file">
+    <br/><br/>
+    date:
+    <input id="date" type="date">
+    <br/><br/>
+    name:
+    <input id="name" >
+    <br/><br/>
+    mobile:
+    <input id="mobile" >
+    <br/><br/>
+    Email:
+    <input id="email">
+    <br/><br/>
+    <label>Password:</label><br/>
+    <input id="password" type="password">
+    <input id="repassword" type="password">
+    <br/><br/>
+    <label>Password:</label><br/>
+    <select id="dropdown">
+        <option value="null">select Option</option>
+        <option value="1">select Option 1</option>
+        <option value="2">select Option 2</option>
+        <option value="3">select Option 3</option>
+        <option value="4">select Option 4</option>
+    </select>
+    <br/><br/>
+    <input id="radio" type="radio" name="rad1">
+    <input type="radio" name="rad1">
+    <input type="radio" name="rad1">
+
+    <input type="submit">
+</form>
+
+<script src="js/validation.js"></script>
+
+<script>
+
+    Validation.fields = [
+        {id: "name", custom:"test()"},
+        {id: "password", maxlength: 10, minlength: 4, required: true, match:"repassword"},
+        {id: "date", required:true},
+        {id: "file", required:true},
+        {id: "email", type: "email", number: 5},
+        {id: "name", type: "name"},
+        {id: "mobile", type: "mobile"},
+        {id: "radio", type: "radio"},
+        {id: "dropdown", type: "dropdown"},
+    ];
+
+    Validation.Initiate("myform");
+
+    function test()
+    {
+        alert("custom validation"+Validation.element.value);
+        return true;
+    }
+</script>
+</body>
+</html>
