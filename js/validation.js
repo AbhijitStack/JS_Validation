@@ -9,6 +9,7 @@ ValidationTools.pattern = function (mystring, attribute, value) {
 
 Validation.message.init = function () {
     Validation.message.list["maxlength"] = "maxlength exceeds";
+    Validation.message.list["mobile"] = "This is a mobile type";
 }
 Validation.functionName = function (fun) {
     var ret = fun.toString();
@@ -82,6 +83,7 @@ Object.prototype.Validation = function (id, attribute, value) {
                     break;
             }
 
+
             break;
     }
     return result;
@@ -111,7 +113,7 @@ Validation.showError = function () {
         var div = document.createElement("div");
         div.className = "ValidationErrMsg";
         var str = "";
-        if (Validation.report.attribute == "custom")
+        if ((Validation.report.attribute == "custom")||(Validation.report.attribute == "type"))
             Validation.report.attribute = Validation.report.value;
         if (Validation.message.list[Validation.report.attribute] != undefined) {
             str = Validation.message.list[Validation.report.attribute];

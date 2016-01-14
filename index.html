@@ -6,6 +6,7 @@
 <body>
 <div>
     <form id="myform" action="success.html">
+        <input id="akash">
         <label>File : </label>
         <input id="file" type="file">
         <br/><br/>
@@ -50,16 +51,15 @@
 <script>
 
     Validation.fields = [
-        {id: "newField", custom: "test"},
-        {id: "name", type: "name"},
+        {id: "mobile", type:"mobile"},
         {id: "password", maxlength: 10, minlength: 4, required: true, match: "repassword"},
+        {id: "akash", custom: "akashfun"},
         {id: "date", required: true},
         {id: "file", required: true},
         {id: "email", type: "email", number: 5},
         {id: "name", type: "name"},
-        {id: "mobile", type: "mobile"},
-        {id: "radio", type: "radio"},
-        {id: "dropdown", type: "dropdown"}
+        {id: "radio", type: "radio"}
+
     ];
 
     Validation.Initiate("myform");
@@ -84,6 +84,13 @@
         return true;
     }
 
+    function akashfun() {
+        if (Validation.element.value != "akash") {
+            Validation.message.add("Value should be akash");
+            return false;
+        }
+        return true;
+    }
 
 </script>
 </body>
