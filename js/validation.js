@@ -1,26 +1,25 @@
-var Validation = {element: {}};
+var Validation = {element: {}, message: {list: []}};
 var ValidationTools = {};
 
 ValidationTools.pattern = function (mystring, attribute, value) {
     console.log(mystring, attribute, value);
     var patt = new RegExp(value);
     console.log(patt.test(mystring));
-
 }
-/*Validation.message=function(attribute)
- {   var message="";
- switch(attribute)
- {
- case "email":
- message="Enter a valid email address!";
- break;
- case "email":
- message="Enter a valid email address!";
- break;
- }
 
-
- }*/
+Validation.message.init = function () {
+    Validation.message.list["maxlength"] = "maxlength exceeds";
+}
+Validation.functionName = function (fun) {
+    var ret = fun.toString();
+    ret = ret.substr('function '.length);
+    ret = ret.substr(0, ret.indexOf('('));
+    return ret;
+}
+Validation.message.add = function (value) {
+    var key = (Validation.functionName(arguments.callee.caller));
+    Validation.message.list[key] = value;
+}
 
 Object.prototype.Validation = function (id, attribute, value) {
     var mystring = this.toString();
@@ -29,7 +28,7 @@ Object.prototype.Validation = function (id, attribute, value) {
         case "custom":
             Validation.element.id = id;
             Validation.element.value = mystring;
-            result = eval(value);
+            result = eval(value + "()");
             break;
         case "match":
             var match1 = document.getElementById(id);
@@ -112,12 +111,20 @@ Validation.showError = function () {
         var div = document.createElement("div");
         div.className = "ValidationErrMsg";
         var str = "";
-        str = "Error: " + Validation.report.attribute;
-        if (Validation.report.value == true) {
-            str += " !!! ";
+        if (Validation.report.attribute == "custom")
+            Validation.report.attribute = Validation.report.value;
+        if (Validation.message.list[Validation.report.attribute] != undefined) {
+            str = Validation.message.list[Validation.report.attribute];
         }
         else {
-            str += " is " + Validation.report.value;
+            str = "Error: " + Validation.report.attribute;
+            if (Validation.report.value == true) {
+                str += " !!! ";
+            }
+            else {
+                str += " is " + Validation.report.value;
+            }
+
         }
         div.innerHTML = str;
         var arrow = document.createElement("div");
@@ -166,6 +173,7 @@ Validation.ValidationErrMsgClear = function () {
 }
 
 Validation.Initiate = function (form) {
+    Validation.message.init();
     document.getElementById(form).addEventListener('submit', function (event) {
         event.preventDefault();
         Validation.ValidationErrMsgClear();

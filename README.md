@@ -13,14 +13,15 @@ Form Validation with Javascript
 ~ id : id of the field followed by additional paramenters.
 
 Ex:
-Validation.fields = [
-        {id: "name", custom:"test()"},
-        {id: "password", maxlength: 10, minlength: 4, required: true, match:"repassword"},
-        {id: "date", required:true},
-        {id: "file", required:true},
+    Validation.fields = [
+        {id: "newField", custom: "test"},
+        {id: "name", type: "name"},
+        {id: "password", maxlength: 10, minlength: 4, required: true, match: "repassword"},
+        {id: "date", required: true},
+        {id: "file", required: true},
         {id: "email", type: "email", number: 5},
         {id: "name", type: "name"},
         {id: "mobile", type: "mobile"},
         {id: "radio", type: "radio"},
-        {id: "dropdown", type: "dropdown"},
+        {id: "dropdown", type: "dropdown"}
     ];

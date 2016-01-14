@@ -4,65 +4,87 @@
     <title>input field validation</title>
 </head>
 <body>
-<form id="myform" action="success.html">
-    file:
-    <input id="file" type="file">
-    <br/><br/>
-    date:
-    <input id="date" type="date">
-    <br/><br/>
-    name:
-    <input id="name" >
-    <br/><br/>
-    mobile:
-    <input id="mobile" >
-    <br/><br/>
-    Email:
-    <input id="email">
-    <br/><br/>
-    <label>Password:</label><br/>
-    <input id="password" type="password">
-    <input id="repassword" type="password">
-    <br/><br/>
-    <label>Password:</label><br/>
-    <select id="dropdown">
-        <option value="null">select Option</option>
-        <option value="1">select Option 1</option>
-        <option value="2">select Option 2</option>
-        <option value="3">select Option 3</option>
-        <option value="4">select Option 4</option>
-    </select>
-    <br/><br/>
-    <input id="radio" type="radio" name="rad1">
-    <input type="radio" name="rad1">
-    <input type="radio" name="rad1">
-
-    <input type="submit">
-</form>
-
+<div>
+    <form id="myform" action="success.html">
+        <label>File : </label>
+        <input id="file" type="file">
+        <br/><br/>
+        <label>Date : </label>
+        <input id="date" type="date">
+        <br/><br/>
+        <label>Name : </label>
+        <input id="name">
+        <br/><br/>
+        <label>Mobile : </label>
+        <input id="mobile">
+        <br/><br/>
+        <label>Email : </label>
+        <input id="email">
+        <br/><br/>
+        <label>Password : </label>
+        <input id="password" type="password">
+        <input id="repassword" type="password">
+        <br/><br/>
+        <label>Dropdown : </label>
+        <select id="dropdown">
+            <option value="null">select Option</option>
+            <option value="1">select Option 1</option>
+            <option value="2">select Option 2</option>
+            <option value="3">select Option 3</option>
+            <option value="4">select Option 4</option>
+        </select>
+        <br/><br/>
+        <label>Radio :</label>
+        <input id="radio" type="radio" name="rad1">
+        <input type="radio" name="rad1">
+        <input type="radio" name="rad1">
+        <br/><br/>
+        <label>Custom Field Validation : </label>
+        <input id="newField">
+        <br/><br/><br/>
+        <input type="submit">
+    </form>
+</div>
 <script src="js/validation.js"></script>
 
 <script>
 
     Validation.fields = [
-        {id: "name", custom:"test()"},
-        {id: "password", maxlength: 10, minlength: 4, required: true, match:"repassword"},
-        {id: "date", required:true},
-        {id: "file", required:true},
+        {id: "newField", custom: "test"},
+        {id: "name", type: "name"},
+        {id: "password", maxlength: 10, minlength: 4, required: true, match: "repassword"},
+        {id: "date", required: true},
+        {id: "file", required: true},
         {id: "email", type: "email", number: 5},
         {id: "name", type: "name"},
         {id: "mobile", type: "mobile"},
         {id: "radio", type: "radio"},
-        {id: "dropdown", type: "dropdown"},
+        {id: "dropdown", type: "dropdown"}
     ];
 
     Validation.Initiate("myform");
 
-    function test()
-    {
-        alert("custom validation"+Validation.element.value);
+
+    function test() {
+        /*
+
+         Predefind elements:
+         ------------------
+
+         Validation.element.id --- to get the id of the current field
+         Validation.element.value --- to get the value of the current field
+         Validation.message.add(" To add your custom message. ") --- Add your message block to that field.
+
+         */
+
+        if (Validation.element.value != "123") {
+            Validation.message.add("Custom message block :Your id :" + Validation.element.id + " and Value should be '123'");
+            return false;
+        }
         return true;
     }
+
+
 </script>
 </body>
 </html>
