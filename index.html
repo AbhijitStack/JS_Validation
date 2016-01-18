@@ -6,7 +6,12 @@
 <body>
 <div>
     <form id="myform" action="success.html">
-        <input id="akash">
+        <label>Username : </label>
+        <input id="username" value="Abhijit">
+        <br/><br/>
+        <label>fixed : </label>
+        <input id="fixed">
+        <br/><br/>
         <label>File : </label>
         <input id="file" type="file">
         <br/><br/>
@@ -51,21 +56,30 @@
 <script>
 
     Validation.fields = [
-        {id: "mobile", type:"mobile"},
+        {
+            id: "username",
+            verify: {
+                name: "uname",
+                url: "api/verify.php",
+                errormsg: "This username already exists!!!",
+                method:"POST"
+            }
+        },
         {id: "password", maxlength: 10, minlength: 4, required: true, match: "repassword"},
-        {id: "akash", custom: "akashfun"},
+        {id: "newField", custom: "testfunc"},
+        {id: "fixed", fixedlength: 3},
+        {id: "mobile", type: "mobile"},
         {id: "date", required: true},
         {id: "file", required: true},
         {id: "email", type: "email", number: 5},
         {id: "name", type: "name"},
         {id: "radio", type: "radio"}
-
     ];
 
     Validation.Initiate("myform");
 
 
-    function test() {
+    function testfunc() {
         /*
 
          Predefind elements:
@@ -84,13 +98,6 @@
         return true;
     }
 
-    function akashfun() {
-        if (Validation.element.value != "akash") {
-            Validation.message.add("Value should be akash");
-            return false;
-        }
-        return true;
-    }
 
 </script>
 </body>

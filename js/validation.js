@@ -1,3 +1,8 @@
+/**
+ * Created by: Abhijit Kumar
+ * email:abhijit.stack@gmail.com
+ */
+
 var Validation = {element: {}, message: {list: []}};
 var ValidationTools = {};
 
@@ -7,16 +12,85 @@ ValidationTools.pattern = function (mystring, attribute, value) {
     console.log(patt.test(mystring));
 }
 
+ValidationTools.ajaxRequest = function (id, mystring, data) {
+    var xhttp = new XMLHttpRequest();
+    var params = data.name + "=" + mystring;
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            Validation.report.issuccessful = false;
+
+            if (xhttp.responseText == "true") {
+                Validation.report.issuccessful = true;
+                return true;
+            }
+            else {
+                Validation.report.issuccessful = false;
+                Validation.report.id = id;
+                Validation.report.attribute = id + "_verify";
+                Validation.report.value = "";
+                Validation.message.list[Validation.report.attribute] = data.errormsg;
+                Validation.showError();
+            }
+        }
+    };
+    if (data.method.toLowerCase() == "get") {
+        xhttp.open(data.method, data.url+"?"+params, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send();
+    }
+    else {
+        xhttp.open(data.method, data.url, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+    }
+}
+
+
+Validation.report = {
+    issuccessful: true,
+    id: "",
+    attribute: "",
+    value: "",
+    reset: function () {
+        this.issuccessful = true;
+        this.id = "";
+        this.attribute = "";
+        this.value = "";
+    }
+};
+
+
 Validation.message.init = function () {
     Validation.message.list["maxlength"] = "maxlength exceeds";
+    Validation.message.list["minlength"] = "Minimum length";
     Validation.message.list["mobile"] = "This is a mobile type";
+    Validation.message.list["verify"] = " exists!!!";
+
 }
+
+Validation.message.get = function () {
+    var ret = "";
+
+    switch (Validation.report.attribute) {
+        case "minlength":
+            ret = Validation.message.list[Validation.report.attribute] + " is " + Validation.report.value;
+            break;
+        case "verify":
+            ret = Validation.report.id + " " + Validation.message.list[Validation.report.attribute];
+            break;
+        default:
+            ret = Validation.message.list[Validation.report.attribute];
+    }
+    return ret;
+}
+
 Validation.functionName = function (fun) {
     var ret = fun.toString();
     ret = ret.substr('function '.length);
     ret = ret.substr(0, ret.indexOf('('));
     return ret;
 }
+
 Validation.message.add = function (value) {
     var key = (Validation.functionName(arguments.callee.caller));
     Validation.message.list[key] = value;
@@ -26,6 +100,12 @@ Object.prototype.Validation = function (id, attribute, value) {
     var mystring = this.toString();
     var result;
     switch (attribute) {
+        case "verify":
+            result = ValidationTools.ajaxRequest(id, mystring, value);
+            break;
+        case "fixedlength":
+            result = (mystring.length != value) ? false : true;
+            break;
         case "custom":
             Validation.element.id = id;
             Validation.element.value = mystring;
@@ -48,7 +128,7 @@ Object.prototype.Validation = function (id, attribute, value) {
             result = (mystring.length < value) ? false : true;
             break;
         case "required":
-            result = (mystring.length == "") ? false : true;
+            result = (mystring.length == 0) ? false : true;
             break;
         case "pattern":
             result = (ValidationTools.pattern(mystring, attribute, value)) ? false : true;
@@ -89,18 +169,6 @@ Object.prototype.Validation = function (id, attribute, value) {
     return result;
 };
 
-Validation.report = {
-    issuccessful: true,
-    id: "",
-    attribute: "",
-    value: "",
-    reset: function () {
-        this.issuccessful = true;
-        this.id = "";
-        this.attribute = "";
-        this.value = "";
-    }
-};
 
 Validation.showError = function () {
     var div = document.createElement("div");
@@ -113,10 +181,11 @@ Validation.showError = function () {
         var div = document.createElement("div");
         div.className = "ValidationErrMsg";
         var str = "";
-        if ((Validation.report.attribute == "custom")||(Validation.report.attribute == "type"))
+        if ((Validation.report.attribute == "custom") || (Validation.report.attribute == "type")) {
             Validation.report.attribute = Validation.report.value;
+        }
         if (Validation.message.list[Validation.report.attribute] != undefined) {
-            str = Validation.message.list[Validation.report.attribute];
+            str = Validation.message.get();
         }
         else {
             str = "Error: " + Validation.report.attribute;
