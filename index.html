@@ -2,58 +2,91 @@
 <html>
 <head>
     <title>input field validation</title>
+    <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
-<div>
+
+<p>
+
+<H3>Javascript Form Validator</H3>
+</p>
+
+<div class="container">
     <form id="myform" action="pages/success.html">
-        <label>Username : </label>
-        <input id="username" value="Abhijit ">
-        <br/><br/>
-        <label>to date : </label>
-        <input id="to_date" type="date">
-        <br/><br/>
-        <label>From date : </label>
-        <input id="from_date" type="date">
-        <br/><br/>
-        <label>fixed : </label>
-        <input id="fixed">
-        <br/><br/>
-        <label>File : </label>
-        <input id="file" type="file">
-        <br/><br/>
-        <label>Date : </label>
-        <input id="date" type="date">
-        <br/><br/>
-        <label>Name : </label>
-        <input id="name">
-        <br/><br/>
-        <label>Mobile : </label>
-        <input id="mobile">
-        <br/><br/>
-        <label>Email : </label>
-        <input id="email">
-        <br/><br/>
-        <label>Password : </label>
-        <input id="password" type="password">
-        <input id="repassword" type="password">
-        <br/><br/>
-        <label>Dropdown : </label>
-        <select id="dropdown">
-            <option value="null">select Option</option>
-            <option value="1">select Option 1</option>
-            <option value="2">select Option 2</option>
-            <option value="3">select Option 3</option>
-            <option value="4">select Option 4</option>
-        </select>
-        <br/><br/>
-        <label>Radio :</label>
-        <input id="radio" type="radio" name="rad1">
-        <input type="radio" name="rad1">
-        <input type="radio" name="rad1">
-        <br/><br/>
-        <label>Custom Field Validation : </label>
-        <input id="newField">
-        <br/><br/><br/>
+        <div class="form_horizontal">
+            <div class="form_element">
+                <label>Username : </label>
+                <input id="username" value="Abhijit">
+            </div>
+            <div class="form_element">
+                <label>Email : </label>
+                <input id="email">
+            </div>
+        </div>
+        <div class="form_horizontal">
+            <div class="form_element">
+                <label>Password : </label>
+                <input id="password" type="password">
+            </div>
+            <div class="form_element">
+                <label>Re-Password : </label>
+                <input id="repassword" type="password">
+            </div>
+        </div>
+        <div class="form_horizontal">
+            <div class="form_element">
+                <label>Name : </label>
+                <input id="name">
+            </div>
+            <div class="form_element">
+                <label>Mobile : </label>
+                <input id="mobile" type="number">
+            </div>
+        </div>
+        <div class="form_horizontal">
+            <div class="form_element">
+                <label>Gender :</label>
+                <input id="radio" type="radio" name="rad1">Male
+                <input type="radio" name="rad1">Female
+            </div>
+            <div class="form_element">
+                <label>Dropdown : </label>
+                <select id="dropdown">
+                    <option value="null">select Option</option>
+                    <option value="1">select Option 1</option>
+                    <option value="2">select Option 2</option>
+                    <option value="3">select Option 3</option>
+                    <option value="4">select Option 4</option>
+                </select>
+            </div>
+            <div class="form_horizontal">
+                <div class="form_element">
+                    <label>File : </label>
+                    <input id="file" type="file">
+                </div>
+                <div class="form_element">
+                    <label>PIN Code : </label>
+                    <input id="pincode" type="number">
+                </div>
+            </div>
+            <div class="form_horizontal">
+                <div class="form_element">
+                    <label>Starting Date : </label>
+                    <input id="to_date" type="date">
+                </div>
+                <div class="form_element">
+                    <label>Ending date : </label>
+                    <input id="from_date" type="date">
+                </div>
+            </div>
+            <div class="form_horizontal">
+                <div class="form_element">
+                    <label>Self Defined : </label>
+                    <input id="newField">
+                </div>
+
+            </div>
+        </div>
         <input type="submit">
     </form>
 </div>
@@ -62,8 +95,7 @@
 <script>
 
     Validation.fields = [
-        {id: "to_date", datefrom: "from_date", required: true},
-        {id: "from_date", required: true},
+
         {
             id: "username",
             verify: {
@@ -73,15 +105,20 @@
                 method: "POST"
             }
         },
-        {id: "password", maxlength: 10, minlength: 4, required: true, match: "repassword"},
-        {id: "newField", custom: "testfunc"},
-        {id: "fixed", fixedlength: 3},
-        {id: "mobile", type: "mobile"},
-        {id: "date", required: true},
-        {id: "file", required: true},
+
         {id: "email", type: "email", number: 5},
+        {id: "password", maxlength: 10, minlength: 4, required: true, match: "repassword"},
+        {id: "repassword", required: true},
         {id: "name", type: "name"},
-        {id: "radio", type: "radio"}
+        {id: "mobile", type: "mobile"},
+        {id: "radio", type: "radio"},
+        {id: "dropdown", type: "dropdown"},
+        {id: "file", required: true},
+        {id: "pincode", fixedlength: 4},
+        {id: "to_date", datefrom: "from_date", required: true},
+        {id: "from_date", required: true},
+        {id: "newField", custom: "testfunc"},
+
     ];
 
     Validation.Initiate("myform");

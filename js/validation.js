@@ -1,6 +1,6 @@
 /**
- * Created by: Abhijit Kumar
- * email:abhijit.stack@gmail.com
+ * Created by : Abhijit Kumar
+ * email : abhijit.stack@gmail.com
  */
 
 var Validation = {element: {}, message: {list: []}};
@@ -21,6 +21,7 @@ Validation.report = {
 
 
 Validation.message.init = function () {
+    Validation.message.list["email"] = "Invalid Email format!";
     Validation.message.list["maxlength"] = "maxlength exceeds";
     Validation.message.list["minlength"] = "Minimum length";
     Validation.message.list["datefrom"] = "You can't Enter To Date more than From Date";
@@ -56,7 +57,7 @@ Validation.createStyle = function () {
 
     var styleElements =
         ".ValidationErrMsg{" +
-        "margin:10px 30px;" +
+        "margin:10px 0px;" +
         "position:absolute;" +
         "padding:5px 10px;" +
         "background-color:#cc3309;" +
@@ -65,6 +66,7 @@ Validation.createStyle = function () {
         "font-size:10px;" +
         "color:#fefefe;" +
         "border-radius:3px;" +
+        "z-index:999999999" +
         "}" +
         " \n ";
     styleElements +=
@@ -227,7 +229,8 @@ Validation.showError = function () {
     document.getElementById(Validation.report.id);
     var container = document.getElementById(Validation.report.id).parentNode,
         currentElement = document.getElementById(Validation.report.id);
-    var marginleft = (currentElement.getBoundingClientRect().left);
+    var marginleft = (currentElement.getBoundingClientRect().left - container.getBoundingClientRect().left);
+
     if (container && currentElement) {
         var div = document.createElement("div");
         div.className = "ValidationErrMsg";
@@ -251,7 +254,7 @@ Validation.showError = function () {
         div.innerHTML = str;
         var arrow = document.createElement("div");
         arrow.className = "ErrMsgBorder";
-        div.style.marginLeft = marginleft + "px";
+        div.style.marginLeft = (1+marginleft) + "px";
         div.appendChild(arrow);
         currentElement.parentNode.insertBefore(div, currentElement.nextSibling);
     }
