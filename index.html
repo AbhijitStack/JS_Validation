@@ -5,9 +5,15 @@
 </head>
 <body>
 <div>
-    <form id="myform" action="success.html">
+    <form id="myform" action="pages/success.html">
         <label>Username : </label>
-        <input id="username" value="Abhijit">
+        <input id="username" value="Abhijit ">
+        <br/><br/>
+        <label>to date : </label>
+        <input id="to_date" type="date">
+        <br/><br/>
+        <label>From date : </label>
+        <input id="from_date" type="date">
         <br/><br/>
         <label>fixed : </label>
         <input id="fixed">
@@ -56,13 +62,15 @@
 <script>
 
     Validation.fields = [
+        {id: "to_date", datefrom: "from_date", required: true},
+        {id: "from_date", required: true},
         {
             id: "username",
             verify: {
                 name: "uname",
                 url: "api/verify.php",
                 errormsg: "This username already exists!!!",
-                method:"POST"
+                method: "POST"
             }
         },
         {id: "password", maxlength: 10, minlength: 4, required: true, match: "repassword"},
