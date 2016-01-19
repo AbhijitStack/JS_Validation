@@ -62,3 +62,14 @@ label {
     text-shadow: 0px 1px 10px #757238;
     background-color: rgba(79, 255, 231, 0.87);
 }
+
+#myform2{
+    background-color: rgba(85, 83, 67, 0.04);
+    border:1px solid rgba(0, 0, 0, 0.14);
+    padding:30px;
+    width:200px;
+}
+
+#myform2>*{
+    margin-left:20px;
+}

@@ -3,7 +3,7 @@
  * email : abhijit.stack@gmail.com
  */
 
-var Validation = {element: {}, message: {list: []}};
+var Validation = {fields: [], element: {}, message: {list: []}};
 var ValidationTools = {};
 
 Validation.report = {
@@ -266,18 +266,18 @@ Validation.showError = function () {
     // console.log("Error in  id", Validation.report.id, "attribute", Validation.report.attribute);
 }
 
-Validation.inProgress = function () {
-    for (var field_count = 0; field_count < Validation.fields.length; field_count++) {
-        // Validation.report.reset();
-        var attributes = (Object.keys(Validation.fields[field_count]));
-        var myid = Validation.fields[field_count].id;
+Validation.inProgress = function (form) {
+    for (var field_count = 0; field_count < Validation.fields[form].length; field_count++) {
+        console.log(form);
+        var attributes = (Object.keys(Validation.fields[form][field_count]));
+        var myid = Validation.fields[form][field_count].id;
         var myelement = document.getElementById(myid).value;
 
 
         for (var attribute_count = 0; attribute_count < attributes.length; attribute_count++) {
 
             var myattribute = (attributes[attribute_count]);
-            var myvalue = Validation.fields[field_count][myattribute];
+            var myvalue = Validation.fields[form][field_count][myattribute];
             if (myattribute != "id")
                 if (myelement.Validation(myid, myattribute, myvalue) == 0) {
                     Validation.report.issuccessful = false;
@@ -304,16 +304,27 @@ Validation.ValidationErrMsgClear = function () {
     }
 }
 
-Validation.Initiate = function (form) {
+Validation.onSubmitListiner = function (event, form) {
+    event.preventDefault();
+    Validation.ValidationErrMsgClear();
+    Validation.inProgress(form);
+    if (Validation.report.issuccessful)
+        document.getElementById(form).submit();
+}
+
+Validation.Initiate = function () {
+
     Validation.createStyle();
     Validation.message.init();
-    document.getElementById(form).addEventListener('submit', function (event) {
-        event.preventDefault();
-        Validation.ValidationErrMsgClear();
-        Validation.inProgress();
-        if (Validation.report.issuccessful)
-            document.getElementById(form).submit();
-    }, false);
+    var forms = Object.keys(Validation.fields);
+
+    for (var fieldcount = 0; fieldcount < forms.length; fieldcount++) {
+        var form = forms[fieldcount].toString();
+        document.getElementById(form).addEventListener('submit', function (event) {
+            Validation.onSubmitListiner(event, this.id)
+        }, false);
+    }
+
 }
 
 

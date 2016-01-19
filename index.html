@@ -3,12 +3,14 @@
 <head>
     <title>input field validation</title>
     <link rel="stylesheet" href="css/main.css"/>
+
+
 </head>
 <body>
 
 <p>
 
-<H3>Javascript Form Validator</H3>
+<H3>Form Validation Successful.</H3>
 </p>
 
 <div class="container">
@@ -96,11 +98,13 @@
         </div>
     </form>
 </div>
+
+
 <script src="js/validation.js"></script>
 
 <script>
 
-    Validation.fields = [
+    Validation.fields['myform'] = [
         {
             id: "username",
             verify: {
@@ -127,7 +131,7 @@
 
     ];
 
-    Validation.Initiate("myform");
+    Validation.Initiate();
 
 
     function testfunc() {

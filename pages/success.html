@@ -2,10 +2,87 @@
 <html>
 <head>
     <title>input field validation</title>
-
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script>
+       /* alert("Successful \n\n\n Now Create Multiple forms in one page");*/
+    </script>
 </head>
 <body>
-<h1>Form Validated Successfully.</h1>
 
+<p>
+
+<H3>Javascript Form Validator</H3>
+</p>
+
+<div class="container" style="border:1px solid #000;">
+
+    <form id="myform" action="pages/success.html">
+        <H6>Submit and go to ajax Page</H6>
+        <div class="form_horizontal">
+            <div class="form_element">
+                <label>Name : </label>
+                <input id="name">
+            </div>
+            <div class="form_element">
+                <label>Email : </label>
+                <input id="email">
+            </div>
+        </div>
+
+        <div class="form_horizontal">
+            <input class="submit" type="submit">
+        </div>
+    </form>
+</div>
+
+<form id="myform2">
+    <H6>Submit and go to Home Pages</H6>
+
+    <div class="form_element">
+        <label>Mobile Number : </label>
+        <input id="mobile">
+    </div>
+    <div class="form_element">
+        <input type="submit">
+    </div>
+
+</form>
+<script src="../js/validation.js"></script>
+
+<script>
+
+    Validation.fields['myform'] = [
+        {id: "name", type: "name"},
+        {id: "email", type: "email"}
+    ];
+    Validation.fields['myform2'] = [
+        {id: "mobile", type: "mobile"},
+
+    ];
+
+    Validation.Initiate();
+
+
+    function testfunc() {
+        /*
+
+         Predefind elements:
+         ------------------
+
+         Validation.element.id --- to get the id of the current field
+         Validation.element.value --- to get the value of the current field
+         Validation.message.add(" To add your custom message. ") --- Add your message block to that field.
+
+         */
+
+        if (Validation.element.value != "123") {
+            Validation.message.add("Custom message block :Your id :" + Validation.element.id + " and Value should be '123'");
+            return false;
+        }
+        return true;
+    }
+
+
+</script>
 </body>
 </html>
