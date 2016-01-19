@@ -63,7 +63,7 @@ Validation.createStyle = function () {
         "background-color:#cc3309;" +
         "border:1px;" +
         "box-shadow:1px 1px 2px 1px #ee3309;" +
-        "font-size:10px;" +
+        "font-size:12px;" +
         "color:#fefefe;" +
         "border-radius:3px;" +
         "z-index:999999999" +
@@ -110,8 +110,6 @@ ValidationTools.ajaxRequest = function (id, mystring, data) {
     var params = data.name + "=" + mystring;
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            Validation.report.issuccessful = false;
-
             if (xhttp.responseText == "true") {
                 Validation.report.issuccessful = true;
                 return true;
@@ -123,6 +121,7 @@ ValidationTools.ajaxRequest = function (id, mystring, data) {
                 Validation.report.value = "";
                 Validation.message.list[Validation.report.attribute] = data.errormsg;
                 Validation.showError();
+
             }
         }
     };
@@ -291,9 +290,11 @@ Validation.inProgress = function () {
 Validation.ValidationErrMsgClear = function () {
     var elements = document.getElementsByClassName("ValidationErrMsg");
     if (elements.length != 0) {
-        var parent = elements[0].parentNode;
-        parent.removeChild(elements[0]);
-        Validation.report.reset();
+        for(var count=0;count<=elements.length;count++) {
+            var parent = elements[count].parentNode;
+            parent.removeChild(elements[count]);
+            Validation.report.reset();
+        }
     }
 }
 

@@ -1,8 +1,15 @@
+@font-face {
+    font-family:RobotoCondensedLight ;
+    src: url('../font/RobotoCondensed-Light.ttf');
+}
+
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
+    font-family:RobotoCondensedLight ;
+
 }
 
 h3 {
@@ -14,10 +21,11 @@ h3 {
     padding: 10px;
     width: 60%;
     position: absolute;
-    margin-top: 10px;
     left: 50%;
     margin-left: -30%;
-    background-color: rgba(255, 200, 60, 0.22);
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px 1px #a3fcff;
+    background-color: rgba(137, 255, 150, 0.22);
 }
 
 form .form_horizontal {
@@ -32,3 +40,18 @@ form .form_horizontal {
     float: left;
 }
 
+.submit {
+    cursor: pointer;
+    color:#fff;
+    font-size: 14px;
+    padding: 10px;
+    width: 30%;
+    position: absolute;
+    position: absolute;
+    margin-top: 12px;
+    left: 50%;
+    margin-left: -15%;
+    border: 0px;
+ text-shadow: 0px 1px 10px #757238;
+    background-color: rgba(126, 171, 255, 0.87);
+}

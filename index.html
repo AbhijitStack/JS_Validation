@@ -7,8 +7,7 @@
 <body>
 
 <p>
-
-<H3>Javascript Form Validator</H3>
+    <H3>Javascript Form Validator</H3>
 </p>
 
 <div class="container">
@@ -87,7 +86,9 @@
 
             </div>
         </div>
-        <input type="submit">
+        <div class="form_horizontal">
+            <input class="submit" type="submit">
+        </div>
     </form>
 </div>
 <script src="js/validation.js"></script>
@@ -114,10 +115,10 @@
         {id: "radio", type: "radio"},
         {id: "dropdown", type: "dropdown"},
         {id: "file", required: true},
-        {id: "pincode", fixedlength: 4},
+        {id: "pincode", fixedlength: 6},
         {id: "to_date", datefrom: "from_date", required: true},
         {id: "from_date", required: true},
-        {id: "newField", custom: "testfunc"},
+        {id: "newField", custom: "testfunc"}
 
     ];
 
