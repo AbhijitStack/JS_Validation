@@ -3,7 +3,7 @@
  * email : abhijit.stack@gmail.com
  */
 
-var Validation = {fields: [], element: {}, message: {list: []}};
+var Validation = {Ajax_fields: [], fields: [],element: {}, message: {list: []}};
 var ValidationTools = {};
 
 Validation.report = {
@@ -28,12 +28,12 @@ Validation.message.init = function () {
     Validation.message.list["mobile"] = "This is a mobile type";
     Validation.message.list["verify"] = " exists!!!";
 
-}
+};
 
 Validation.message.add = function (value) {
     var key = (ValidationTools.getFunctionName(arguments.callee.caller));
     Validation.message.list[key] = value;
-}
+};
 
 Validation.message.get = function () {
     var ret = "";
@@ -49,7 +49,7 @@ Validation.message.get = function () {
             ret = Validation.message.list[Validation.report.attribute];
     }
     return ret;
-}
+};
 
 
 Validation.createStyle = function () {
@@ -81,14 +81,14 @@ Validation.createStyle = function () {
         "}";
     style.innerHTML = styleElements;
     document.body.appendChild(style);
-}
+};
 
 
 ValidationTools.pattern = function (mystring, attribute, value) {
     console.log(mystring, attribute, value);
     var patt = new RegExp(value);
     console.log(patt.test(mystring));
-}
+};
 
 ValidationTools.toDateAndFromDate = function (mydate, fromid) {
     var fromdate = document.getElementById(fromid).value;
@@ -103,7 +103,7 @@ ValidationTools.toDateAndFromDate = function (mydate, fromid) {
 
     return true;
 
-}
+};
 
 ValidationTools.ajaxRequest = function (id, mystring, data) {
     var xhttp = new XMLHttpRequest();
@@ -135,7 +135,7 @@ ValidationTools.ajaxRequest = function (id, mystring, data) {
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
     }
-}
+};
 
 
 ValidationTools.getFunctionName = function (func) {
@@ -143,7 +143,7 @@ ValidationTools.getFunctionName = function (func) {
     ret = ret.substr('function '.length);
     ret = ret.substr(0, ret.indexOf('('));
     return ret;
-}
+};
 
 Object.prototype.Validation = function (id, attribute, value) {
     var mystring = this.toString();
@@ -264,11 +264,11 @@ Validation.showError = function () {
         currentElement.parentNode.insertBefore(div, currentElement.nextSibling);
     }
     // console.log("Error in  id", Validation.report.id, "attribute", Validation.report.attribute);
-}
+};
 
 Validation.inProgress = function (form) {
     for (var field_count = 0; field_count < Validation.fields[form].length; field_count++) {
-        console.log(form);
+
         var attributes = (Object.keys(Validation.fields[form][field_count]));
         var myid = Validation.fields[form][field_count].id;
         var myelement = document.getElementById(myid).value;
@@ -292,7 +292,7 @@ Validation.inProgress = function (form) {
             break;
         }
     }
-}
+};
 Validation.ValidationErrMsgClear = function () {
     var elements = document.getElementsByClassName("ValidationErrMsg");
     if (elements.length != 0) {
@@ -302,7 +302,7 @@ Validation.ValidationErrMsgClear = function () {
             Validation.report.reset();
         }
     }
-}
+};
 
 Validation.onSubmitListiner = function (event, form) {
     event.preventDefault();
@@ -310,13 +310,12 @@ Validation.onSubmitListiner = function (event, form) {
     Validation.inProgress(form);
     if (Validation.report.issuccessful)
         document.getElementById(form).submit();
-}
+};
 
-Validation.Initiate = function () {
+Validation.Initiate = function (forms) {
 
     Validation.createStyle();
     Validation.message.init();
-    var forms = Object.keys(Validation.fields);
 
     for (var fieldcount = 0; fieldcount < forms.length; fieldcount++) {
         var form = forms[fieldcount].toString();
@@ -325,7 +324,36 @@ Validation.Initiate = function () {
         }, false);
     }
 
+};
+
+Validation.getAjaxStatus=function(parameter){
+
+    Validation.ValidationErrMsgClear();
+    Validation.inProgress(parameter);
+
+    if(Validation.report.issuccessful)
+        return true;
+    else
+        return false;
+
 }
+
+Validation.Initiate = function () {
+
+    Validation.createStyle();
+    Validation.message.init();
+    var forms = Object.keys(Validation.fields);
+    console.log(Validation.fields);
+    for (var fieldcount = 0; fieldcount < forms.length; fieldcount++) {
+        var form = forms[fieldcount].toString();
+        document.getElementById(form).addEventListener('submit', function (event) {
+            Validation.onSubmitListiner(event, this.id)
+        }, false);
+    }
+
+};
+
+
 
 
 

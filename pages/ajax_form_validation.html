@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>input field validation</title>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script>
+        /* alert("Successful \n\n\n Now Create Multiple forms in one page");*/
+    </script>
+</head>
+<body>
+
+<p>
+
+<H3>Javascript Form Validator</H3>
+</p>
+
+<div class="container" style="border:1px solid #000;">
+
+    <div >
+        <H6>Submit and go to ajax Page</H6>
+
+        <div class="form_horizontal">
+            <div class="form_element">
+                <label>Name : </label>
+                <input id="name">
+            </div>
+            <div class="form_element">
+                <label>Email : </label>
+                <input id="email">
+            </div>
+        </div>
+
+        <div class="form_horizontal" style="margin-top: 100px;">
+            <input id="myform" class="submit" type="submit">
+        </div>
+    </div>
+</div>
+
+<script src="../js/validation.js"></script>
+
+<script>
+
+    Validation.fields['myform'] = [
+        {id: "name", type: "name"},
+        {id: "email", type: "email"}
+    ];
+
+
+    Validation.Initiate([]);
+
+    document.getElementById('myform').addEventListener('click', function (event) {
+        if (Validation.getAjaxStatus('myform')) {
+            alert("Ready to send: Do further process");
+        }
+    }, false);
+
+
+</script>
+</body>
+</html>

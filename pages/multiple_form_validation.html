@@ -4,7 +4,7 @@
     <title>input field validation</title>
     <link rel="stylesheet" href="../css/main.css"/>
     <script>
-       /* alert("Successful \n\n\n Now Create Multiple forms in one page");*/
+        alert("Successful \n\n\n Now Create Multiple forms in one page");
     </script>
 </head>
 <body>
@@ -16,8 +16,9 @@
 
 <div class="container" style="border:1px solid #000;">
 
-    <form id="myform" action="pages/success.html">
+    <form id="myform" action="ajax_form_validation.html">
         <H6>Submit and go to ajax Page</H6>
+
         <div class="form_horizontal">
             <div class="form_element">
                 <label>Name : </label>
@@ -60,28 +61,7 @@
 
     ];
 
-    Validation.Initiate();
-
-
-    function testfunc() {
-        /*
-
-         Predefind elements:
-         ------------------
-
-         Validation.element.id --- to get the id of the current field
-         Validation.element.value --- to get the value of the current field
-         Validation.message.add(" To add your custom message. ") --- Add your message block to that field.
-
-         */
-
-        if (Validation.element.value != "123") {
-            Validation.message.add("Custom message block :Your id :" + Validation.element.id + " and Value should be '123'");
-            return false;
-        }
-        return true;
-    }
-
+    Validation.Initiate(['myform', 'myform2']);
 
 </script>
 </body>
