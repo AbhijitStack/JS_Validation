@@ -149,6 +149,12 @@ Object.prototype.Validation = function (id, attribute, value) {
     var mystring = this.toString();
     var result;
     switch (attribute) {
+        case "minvalue":
+            result = (mystring < value) ? false : true;
+            break;
+        case "maxvalue":
+            result = (mystring > value) ? false : true;
+            break;
         case "datefrom":
             result = ValidationTools.toDateAndFromDate(mystring, value);
             break;
@@ -253,7 +259,7 @@ Validation.showError = function () {
         div.innerHTML = str;
         var arrow = document.createElement("div");
         arrow.className = "ErrMsgBorder";
-        div.style.marginLeft = (1+marginleft) + "px";
+        div.style.marginLeft = (1 + marginleft) + "px";
         div.appendChild(arrow);
         currentElement.parentNode.insertBefore(div, currentElement.nextSibling);
     }
@@ -290,7 +296,7 @@ Validation.inProgress = function () {
 Validation.ValidationErrMsgClear = function () {
     var elements = document.getElementsByClassName("ValidationErrMsg");
     if (elements.length != 0) {
-        for(var count=0;count<=elements.length;count++) {
+        for (var count = 0; count <= elements.length; count++) {
             var parent = elements[count].parentNode;
             parent.removeChild(elements[count]);
             Validation.report.reset();

@@ -7,7 +7,8 @@
 <body>
 
 <p>
-    <H3>Javascript Form Validator</H3>
+
+<H3>Javascript Form Validator</H3>
 </p>
 
 <div class="container">
@@ -45,23 +46,23 @@
         <div class="form_horizontal">
             <div class="form_element">
                 <label>Gender :</label>
-                <input id="radio" type="radio" name="rad1">Male
+                <input id="radio" type="radio" name="rad1">Male<br/>
                 <input type="radio" name="rad1">Female
             </div>
             <div class="form_element">
-                <label>Dropdown : </label>
+                <label>Birth Year Range : </label>
                 <select id="dropdown">
-                    <option value="null">select Option</option>
-                    <option value="1">select Option 1</option>
-                    <option value="2">select Option 2</option>
-                    <option value="3">select Option 3</option>
-                    <option value="4">select Option 4</option>
+                    <option value="null">Select Your Range</option>
+                    <option value="1">(1986-1990)</option>
+                    <option value="2">(1991-1995)</option>
+                    <option value="3">(1996-2000)</option>
+                    <option value="4">(after 2000)</option>
                 </select>
             </div>
             <div class="form_horizontal">
                 <div class="form_element">
                     <label>File : </label>
-                    <input id="file" type="file">
+                    <input id="file" type="file" style="width:89px;">
                 </div>
                 <div class="form_element">
                     <label>PIN Code : </label>
@@ -83,6 +84,10 @@
                     <label>Self Defined : </label>
                     <input id="newField">
                 </div>
+                <div class="form_element">
+                    <label>Range (10-20) : </label>
+                    <input id="range">
+                </div>
 
             </div>
         </div>
@@ -96,7 +101,6 @@
 <script>
 
     Validation.fields = [
-
         {
             id: "username",
             verify: {
@@ -107,7 +111,7 @@
             }
         },
 
-        {id: "email", type: "email", number: 5},
+        {id: "email", type: "email"},
         {id: "password", maxlength: 10, minlength: 4, required: true, match: "repassword"},
         {id: "repassword", required: true},
         {id: "name", type: "name"},
@@ -115,10 +119,11 @@
         {id: "radio", type: "radio"},
         {id: "dropdown", type: "dropdown"},
         {id: "file", required: true},
-        {id: "pincode", fixedlength: 6},
+        {id: "pincode", fixedlength: 5},
         {id: "to_date", datefrom: "from_date", required: true},
         {id: "from_date", required: true},
-        {id: "newField", custom: "testfunc"}
+        {id: "newField", custom: "testfunc"},
+        {id: "range", minvalue: 10, maxvalue: 20}
 
     ];
 
